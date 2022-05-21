@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="servlet-api">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../APT_Project/apache-tomcat-10.0.21/lib/servlet-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lucene-snowball-3.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

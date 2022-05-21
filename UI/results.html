@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Autocomplete Search Box</title>
+    <link rel="stylesheet" href="style2.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script src="https://kit.fontawesome.com/afc97c838a.js" crossorigin="anonymous"></script>
+    <title>results</title>
+    <style>
+        .hide {
+            display: none;
+        }
+        
+        .link_container {
+            margin: 10px;
+            padding: 5px;
+        }
+        
+        .link_container .url_container {
+            padding: 10px;
+            font-size: bold;
+            font-weight: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="wrapper">
+        <div class="search-input">
+            <a href="" target="_blank" hidden></a>
+            <input type="text" placeholder="Type to search..">
+            <div class="autocom-box">
+                <!-- here list are inserted from javascript -->
+            </div>
+            <div class="icon" onclick="runSpeechRecognition()"><i class="fa-solid fa-microphone"></i></div>
+        </div>
+        <div id="output" class="hide"></div>
+        <div id="output" class="hide"></div>
+    </div>
+    <div id="link" class="link_container hide">
+        <div class="url_container">
+            <a class="url">
+
+            </a>
+        </div>
+        <div class="description_container">
+            <p class="description">
+
+            </p>
+        </div>
+
+
+
+    </div>
+    <div id="resultsContainer">
+
+    </div>
+    <div class="pageination_container">
+        <button id="nextPage">F</button>
+        <button id="prevPage">B</button>
+    </div>
+    <input type="text" value="" id="links" class="hide" >
+    <input type="text" value="" id="titles" class="hide" >
+    <input type="text" value="" id="descriptions" class="hide"> -->
+    
+
+</body>
+
+<script>
+    console.log("DONE");
+    document.onload=function(){
+
+    
+    let links = document.getElementById('links').value.split('^');
+
+    let titles = document.getElementById('titles').value.split('^');
+
+    let descriptions = document.getElementById('descriptions').value.split('^');
+
+    const resultsContainer = document.getElementById('resultsContainer');
+
+    let currentPage = 0;
+    let numLinks = descriptions.length;
+    let numPages = numLinks / 10;
+
+    let limit = 10 > numLinks ? numLinks : 10;
+    for (let i = 0; i < limit; i++) {
+        let newlink = document.getElementById("link").cloneNode(true);
+        newlink.setAttribute("id", `link-${i}`);
+        
+        newlink.classList.remove("hide");
+        newlink.children[0].children[0].textContent = titles[i];
+        newlink.children[0].children[0].setAttribute("href", links[i]);
+        newlink.children[1].children[0].textContent = descriptions[i];
+        resultsContainer.appendChild(newlink);
+    }
+
+    document.getElementById('nextPage').onclick = () => {
+        if(currentPage+1 == numPages) return;
+        
+        currentPage++;
+        resultsContainer.innerHTML = '';
+        let limit = ((currentPage+1)*10) >= numLinks ? numLinks : (currentPage+1)*10;
+        for (let i = currentPage*10; i < limit; i++) {
+            let newlink = document.getElementById("link").cloneNode(true);
+            newlink.setAttribute("id", `link-${i}`);
+            
+            newlink.classList.remove("hide");
+            newlink.children[0].children[0].textContent = titles[i];
+            newlink.children[0].children[0].setAttribute("href", links[i]);
+            newlink.children[1].children[0].textContent = descriptions[i];
+            resultsContainer.appendChild(newlink);
+        }
+    }
+
+    document.getElementById('prevPage').onclick = () => {
+        if(currentPage-1 == -1) return;
+        
+        currentPage--;
+        resultsContainer.innerHTML = '';
+        let limit = ((currentPage+1)*10) >= numLinks ? numLinks : (currentPage+1)*10;
+        for (let i = currentPage*10; i < limit; i++) {
+            let newlink = document.getElementById("link").cloneNode(true);
+            newlink.setAttribute("id", `link-${i}`);
+            
+            newlink.classList.remove("hide");
+            newlink.children[0].children[0].textContent = titles[i];
+            newlink.children[0].children[0].setAttribute("href", links[i]);
+            newlink.children[1].children[0].textContent = descriptions[i];
+            resultsContainer.appendChild(newlink);
+        }
+    }
+}
+</script>
+
+<script src="/main.js"></script>
+<script src="/s.js"></script>
+<script src="/results.js"></script>
+
+</html>
